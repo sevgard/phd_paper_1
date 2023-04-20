@@ -16,7 +16,7 @@ plt.rcParams["figure.autolayout"] = True
 '''Plot the graphs for the mean when mean_i = mean_j'''
 
 
-# enter parameters
+# Enter parameters
 mean_i = 4
 mean_j = 4
 st_dev = 1
