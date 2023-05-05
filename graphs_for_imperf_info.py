@@ -61,8 +61,8 @@ for i in range(30):
     list_pi_total_erp.append((j, pi_total_erp(j, j, st_dev, rho, psi, B_star)))
 
 fig1, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
-fig1.suptitle(('\u0398\u0305_i = variable', '\u0398\u0305_j = variable', '\u03C3 = {}'.format(st_dev),
-              '\u03C1={}'.format(rho), '\u03C8={}'.format(psi)), fontsize=12)
+# fig1.suptitle(('\u0398\u0305_i = variable', '\u0398\u0305_j = variable', '\u03C3 = {}'.format(st_dev),
+#               '\u03C1={}'.format(rho), '\u03C8={}'.format(psi)), fontsize=12)
 ax1.plot(*zip(*list_y_tilde_b), '--g', label='\u0079\u0303(b)')
 ax1.plot(*zip(*list_y_star_b), '--b', label='\u0079\u002A(b)')
 ax1.plot(*zip(*list_y_tilde), '-g', label='\u0079\u0303')
@@ -170,8 +170,8 @@ for i in range(30):
     list_pi_total_erp.append((j, pi_total_erp(mean_i, j, st_dev, rho, psi, B_star)))
 
 fig3, ((ax31, ax32), (ax33, ax34)) = plt.subplots(2, 2)
-fig3.suptitle(('\u0398\u0305_i = {}'.format(mean_i), '\u0398\u0305_j = variable', '\u03C3 = {}'.format(st_dev),
-              '\u03C1={}'.format(rho), '\u03C8={}'.format(psi)), fontsize=12)
+# fig3.suptitle(('\u0398\u0305_i = {}'.format(mean_i), '\u0398\u0305_j = variable', '\u03C3 = {}'.format(st_dev),
+#               '\u03C1={}'.format(rho), '\u03C8={}'.format(psi)), fontsize=12)
 ax31.plot(*zip(*list_y_tilde_b), '--g', label='\u0079\u0303(b)')
 ax31.plot(*zip(*list_y_star_b), '--b', label='\u0079\u002A(b)')
 ax31.plot(*zip(*list_y_tilde), '-g', label='\u0079\u0303')
@@ -227,8 +227,8 @@ for i in range(30):
     list_pi_total_erp.append((j, pi_total_erp(mean_i, mean_j, j, rho, psi, B_star)))
 
 fig4, ((ax41, ax42), (ax43, ax44)) = plt.subplots(2, 2)
-fig4.suptitle(('\u0398\u0305_i = {}'.format(mean_i), '\u0398\u0305_j = {}'.format(mean_i), '\u03C3\u00B2 = variable',
-              '\u03C1={}'.format(rho), '\u03C8={}'.format(psi)), fontsize=12)
+# fig4.suptitle(('\u0398\u0305_i = {}'.format(mean_i), '\u0398\u0305_j = {}'.format(mean_i), '\u03C3\u00B2 = variable',
+#               '\u03C1={}'.format(rho), '\u03C8={}'.format(psi)), fontsize=12)
 ax41.plot(*zip(*list_y_tilde_b), '--g', label='\u0079\u0303(b)')
 ax41.plot(*zip(*list_y_star_b), '--b', label='\u0079\u002A(b)')
 ax41.plot(*zip(*list_y_tilde), '-g', label='\u0079\u0303')
@@ -284,8 +284,8 @@ for i in range(30):
     list_pi_total_erp.append((j, pi_total_erp(mean_i, mean_j, st_dev, j, psi, B_star)))
 
 fig5, ((ax51, ax52), (ax53, ax54)) = plt.subplots(2, 2)
-fig5.suptitle(('\u0398\u0305_i = {}'.format(mean_i), '\u0398\u0305_j = {}'.format(mean_i), '\u03C3 = {}'.format(st_dev),
-              '\u03C1=variable', '\u03C8={}'.format(psi)), fontsize=12)
+# fig5.suptitle(('\u0398\u0305_i = {}'.format(mean_i), '\u0398\u0305_j = {}'.format(mean_i), '\u03C3 = {}'.format(st_dev),
+#               '\u03C1=variable', '\u03C8={}'.format(psi)), fontsize=12)
 ax51.plot(*zip(*list_y_tilde_b), '--g', label='\u0079\u0303(b)')
 ax51.plot(*zip(*list_y_star_b), '--b', label='\u0079\u002A(b)')
 ax51.plot(*zip(*list_y_tilde), '-g', label='\u0079\u0303')
@@ -341,8 +341,8 @@ for i in range(30):
     list_pi_total_erp.append((j, pi_total_erp(mean_i, mean_j, st_dev, rho, j, B_star)))
 
 fig6, ((ax61, ax62), (ax63, ax64)) = plt.subplots(2, 2)
-fig6.suptitle(('\u0398\u0305_i = {}'.format(mean_i), '\u0398\u0305_j = {}'.format(mean_j), '\u03C3 = {}'.format(st_dev),
-              '\u03C1={}'.format(rho), '\u03C8 = variable'), fontsize=12)
+# fig6.suptitle(('\u0398\u0305_i = {}'.format(mean_i), '\u0398\u0305_j = {}'.format(mean_j), '\u03C3 = {}'.format(st_dev),
+#               '\u03C1={}'.format(rho), '\u03C8 = variable'), fontsize=12)
 ax61.plot(*zip(*list_y_tilde_b), '--g', label='\u0079\u0303(b)')
 ax61.plot(*zip(*list_y_star_b), '--b', label='\u0079\u002A(b)')
 ax61.plot(*zip(*list_y_tilde), '-g', label='\u0079\u0303')
