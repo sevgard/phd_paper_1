@@ -3,7 +3,10 @@ from imperf_info import c
 from imperf_info import y_tilde
 from imperf_info import y_star
 from imperf_info import p_ref
+from imperf_info import pi_m_t
 from imperf_info import pi_total_vr
+# from imperf_info import pi_total_vr_y_tilde_b
+# from imperf_info import pi_total_vr_y_star_b
 from imperf_info import b_star
 from imperf_info import y_tilde_b
 from imperf_info import y_star_b
@@ -17,8 +20,8 @@ plt.rcParams["figure.autolayout"] = True
 
 
 # Enter parameters
-mean_i = 4
-mean_j = 4
+mean_i = 3
+mean_j = 3
 st_dev = 1
 rho = 0.5
 psi = 0.5
@@ -28,7 +31,10 @@ list_cost_ref = []
 list_y_tilde = []
 list_y_star = []
 list_p_ref = []
+list_pi_m_t = []
 list_pi_total_vr = []
+list_pi_total_vr_y_tilde_b = []
+list_pi_total_vr_y_star_b = []
 list_b_star = []
 list_y_tilde_b = []
 list_y_star_b = []
@@ -44,7 +50,10 @@ for i in range(30):
     list_y_tilde.append((j, y_tilde(j, j, st_dev, rho, psi)))
     list_y_star.append((j, y_star(j, j, st_dev, rho)))
     list_p_ref.append((j, p_ref(j, j, st_dev, rho, psi)))
+    list_pi_m_t.append((j, pi_m_t(j, st_dev)))
     list_pi_total_vr.append((j, pi_total_vr(j, j, st_dev, rho, psi)))
+    # list_pi_total_vr_y_tilde_b.append((j, pi_total_vr_y_tilde_b(j, j, st_dev, rho, psi)))
+    # list_pi_total_vr_y_star_b.append((j, pi_total_vr_y_star_b(j, j, st_dev, rho)))
     list_b_star.append((j, B_star))
     list_y_tilde_b.append((j, y_tilde_b(j, j, st_dev, rho, psi, B_star)))
     list_y_star_b.append((j, y_star_b(j, j, st_dev, rho, B_star)))
@@ -65,6 +74,9 @@ ax2.plot(*zip(*list_p_ref), '-g', label='P(voluntary refer)')
 ax2.set_title('Probability of Referral')
 leg_2 = ax2.legend()
 ax3.plot(*zip(*list_pi_total_vr), '-b', label='\u03A0(VR)')
+ax3.plot(*zip(*list_pi_m_t), '-r', label='\u03A0(No Referral)')
+# ax3.plot(*zip(*list_pi_total_vr_y_tilde_b), '--r', label='Pi_y_tilde_b')
+# ax3.plot(*zip(*list_pi_total_vr_y_star_b), '--y', label='Pi_y_star_b')
 ax3.plot(*zip(*list_pi_total_erp), '--b', label='\u03A0(ERP)')
 ax3.set_title('Firm Profit')
 leg_3 = ax3.legend()
@@ -72,8 +84,8 @@ ax4.plot(*zip(*list_cost_ref), '-k', label='costs C(\u0398\u0305)')
 ax4.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax4.set_title('Referral Costs and Bonus')
 leg_4 = ax4.legend()
-plt.show()
-
+fig1.show()
+fig1.savefig('imperf_means_var.png')
 
 # # Empty lists:
 # list_cost_ref = []
@@ -131,7 +143,10 @@ list_cost_ref = []
 list_y_tilde = []
 list_y_star = []
 list_p_ref = []
+list_pi_m_t = []
 list_pi_total_vr = []
+list_pi_total_vr_y_tilde_b = []
+list_pi_total_vr_y_star_b = []
 list_b_star = []
 list_y_tilde_b = []
 list_y_star_b = []
@@ -146,6 +161,7 @@ for i in range(30):
     list_y_tilde.append((j, y_tilde(mean_i, j, st_dev, rho, psi)))
     list_y_star.append((j, y_star(mean_i, j, st_dev, rho)))
     list_p_ref.append((j, p_ref(mean_i, j, st_dev, rho, psi)))
+    list_pi_m_t.append((j, pi_m_t(j, st_dev)))
     list_pi_total_vr.append((j, pi_total_vr(mean_i, j, st_dev, rho, psi)))
     list_b_star.append((j, B_star))
     list_y_tilde_b.append((j, y_tilde_b(mean_i, j, st_dev, rho, psi, B_star)))
@@ -167,6 +183,7 @@ ax32.plot(*zip(*list_p_ref), '-g', label='P(voluntary refer)')
 ax32.set_title('Probability of Referral')
 leg_2 = ax32.legend()
 ax33.plot(*zip(*list_pi_total_vr), '-b', label='\u03A0(VR)')
+ax33.plot(*zip(*list_pi_m_t), '-r', label='\u03A0(No Referral)')
 ax33.plot(*zip(*list_pi_total_erp), '--b', label='\u03A0(ERP)')
 ax33.set_title('Firm Profit')
 leg_3 = ax33.legend()
@@ -174,15 +191,18 @@ ax34.plot(*zip(*list_cost_ref), '-k', label='costs C(\u0398\u0305)')
 ax34.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax34.set_title('Referral Costs and Bonus')
 leg_4 = ax34.legend()
-plt.show()
-
+fig3.show()
+fig3.savefig('imperf_mean_j_var.png')
 
 # Empty lists:
 list_cost_ref = []
 list_y_tilde = []
 list_y_star = []
 list_p_ref = []
+list_pi_m_t = []
 list_pi_total_vr = []
+list_pi_total_vr_y_tilde_b = []
+list_pi_total_vr_y_star_b = []
 list_b_star = []
 list_y_tilde_b = []
 list_y_star_b = []
@@ -192,13 +212,13 @@ list_pi_total_erp = []
 
 # 4. st_dev
 for i in range(30):
-    j = 0.5 + i*(1.5/30)
+    j = 0.5 + i*(2/30)
     B_star = b_star(mean_i, mean_j, j, rho, psi)
     list_cost_ref.append((j, c(mean_j)))
     list_y_tilde.append((j, y_tilde(mean_i, mean_j, j, rho, psi)))
     list_y_star.append((j, y_star(mean_i, mean_j, j, rho)))
-
     list_p_ref.append((j, p_ref(mean_i, mean_j, j, rho, psi)))
+    list_pi_m_t.append((j, pi_m_t(mean_j, j)))
     list_pi_total_vr.append((j, pi_total_vr(mean_i, mean_j, j, rho, psi)))
     list_b_star.append((j, B_star))
     list_y_tilde_b.append((j, y_tilde_b(mean_i, mean_j, j, rho, psi, B_star)))
@@ -220,6 +240,7 @@ ax42.plot(*zip(*list_p_ref), '-g', label='P(voluntary refer)')
 ax42.set_title('Probability of Referral')
 leg_2 = ax42.legend()
 ax43.plot(*zip(*list_pi_total_vr), '-b', label='\u03A0(VR)')
+ax43.plot(*zip(*list_pi_m_t), '-r', label='\u03A0(No Referral)')
 ax43.plot(*zip(*list_pi_total_erp), '--b', label='\u03A0(ERP)')
 ax43.set_title('Firm Profit')
 leg_3 = ax43.legend()
@@ -227,15 +248,18 @@ ax44.plot(*zip(*list_cost_ref), '-k', label='costs C(\u0398\u0305)')
 ax44.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax44.set_title('Referral Costs and Bonus')
 leg_4 = ax44.legend()
-plt.show()
-
+fig4.show()
+fig4.savefig('imperf_st_dev_var.png')
 
 # Empty lists:
 list_cost_ref = []
 list_y_tilde = []
 list_y_star = []
 list_p_ref = []
+list_pi_m_t = []
 list_pi_total_vr = []
+list_pi_total_vr_y_tilde_b = []
+list_pi_total_vr_y_star_b = []
 list_b_star = []
 list_y_tilde_b = []
 list_y_star_b = []
@@ -251,6 +275,7 @@ for i in range(30):
     list_y_tilde.append((j, y_tilde(mean_i, mean_j, st_dev, j, psi)))
     list_y_star.append((j, y_star(mean_i, mean_j, st_dev, j)))
     list_p_ref.append((j, p_ref(mean_i, mean_j, st_dev, j, psi)))
+    list_pi_m_t.append((j, pi_m_t(mean_j, st_dev)))
     list_pi_total_vr.append((j, pi_total_vr(mean_i, mean_j, st_dev, j, psi)))
     list_b_star.append((j, B_star))
     list_y_tilde_b.append((j, y_tilde_b(mean_i, mean_j, st_dev, j, psi, B_star)))
@@ -272,6 +297,7 @@ ax52.plot(*zip(*list_p_ref), '-g', label='P(voluntary refer)')
 ax52.set_title('Probability of Referral')
 leg_2 = ax52.legend()
 ax53.plot(*zip(*list_pi_total_vr), '-b', label='\u03A0(VR)')
+ax53.plot(*zip(*list_pi_m_t), '-r', label='\u03A0(No Referral)')
 ax53.plot(*zip(*list_pi_total_erp), '--b', label='\u03A0(ERP)')
 ax53.set_title('Firm Profit')
 leg_3 = ax53.legend()
@@ -279,15 +305,18 @@ ax54.plot(*zip(*list_cost_ref), '-k', label='costs C(\u0398\u0305)')
 ax54.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax54.set_title('Referral Costs and Bonus')
 leg_4 = ax54.legend()
-plt.show()
-
+fig5.show()
+fig5.savefig('imperf_rho_var.png')
 
 # Empty lists:
 list_cost_ref = []
 list_y_tilde = []
 list_y_star = []
 list_p_ref = []
+list_pi_m_t = []
 list_pi_total_vr = []
+list_pi_total_vr_y_tilde_b = []
+list_pi_total_vr_y_star_b = []
 list_b_star = []
 list_y_tilde_b = []
 list_y_star_b = []
@@ -303,6 +332,7 @@ for i in range(30):
     list_y_tilde.append((j, y_tilde(mean_i, mean_j, st_dev, rho, j)))
     list_y_star.append((j, y_star(mean_i, mean_j, st_dev, rho)))
     list_p_ref.append((j, p_ref(mean_i, mean_j, st_dev, rho, j)))
+    list_pi_m_t.append((j, pi_m_t(mean_j, st_dev)))
     list_pi_total_vr.append((j, pi_total_vr(mean_i, mean_j, st_dev, rho, j)))
     list_b_star.append((j, B_star))
     list_y_tilde_b.append((j, y_tilde_b(mean_i, mean_j, st_dev, rho, j, B_star)))
@@ -324,6 +354,7 @@ ax62.plot(*zip(*list_p_ref), '-g', label='P(voluntary refer)')
 ax62.set_title('Probability of Referral')
 leg_2 = ax62.legend()
 ax63.plot(*zip(*list_pi_total_vr), '-b', label='\u03A0(VR)')
+ax63.plot(*zip(*list_pi_m_t), '-r', label='\u03A0(No Referral)')
 ax63.plot(*zip(*list_pi_total_erp), '--b', label='\u03A0(ERP)')
 ax63.set_title('Firm Profit')
 leg_3 = ax63.legend()
@@ -331,4 +362,5 @@ ax64.plot(*zip(*list_cost_ref), '-k', label='costs C(\u0398\u0305)')
 ax64.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax64.set_title('Referral Costs and Bonus')
 leg_4 = ax64.legend()
-plt.show()
+fig6.show()
+fig6.savefig('imperf_psi_var.png')

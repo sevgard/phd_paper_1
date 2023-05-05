@@ -3,7 +3,7 @@ from scipy.integrate import quad, dblquad
 import math
 from scipy import optimize
 import numpy as np
-# from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 
 '''Parameters of the model'''
 
@@ -12,7 +12,7 @@ mean_i = 4  # mean of the general ability of the current employee i
 mean_j = 4  # mean of the general ability of the job candidates j,m
 st_dev = 1  # standard deviation of the general ability of i, j, m
 rho = 0.5  # correlation coefficient between general, specific abilities and outputs of referred and referring workers
-psi = 0.5  # social preference parameter showing the strength of the tie between referred and referring workers
+psi = 0.1  # social preference parameter showing the strength of the tie between referred and referring workers
 
 st_dev_y = (st_dev ** 2 + 1) ** 0.5  # standard deviation of the workers' output y = sqrt(var_general _ability +
 # var_specific_ability).
@@ -306,6 +306,18 @@ def p_ref(m_i, m_j, sd, r, p):
     return 1 - norm.cdf((y_thr - m_i) / sd_y)
 
 
+# 1.1.1) Find the hypothetical probability of referral Pr(ref) under no ERP if binding threshold is y_tilde
+def p_ref_y_tilde(m_i, m_j, sd, r, p):
+    sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
+    return 1 - norm.cdf((y_tilde(m_i, m_j, sd, r, p) - m_i) / sd_y)
+
+
+# 1.1.2) Find the hypothetical probability of referral Pr(ref) under no ERP if binding threshold is y_star
+def p_ref_y_star(m_i, m_j, sd, r):
+    sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
+    return 1 - norm.cdf((y_star(m_i, m_j, sd, r) - m_i) / sd_y)
+
+
 # 1.2) Find the probability of referral Pr_b(ref) under ERP with bonus b:
 def p_ref_b(m_i, m_j, sd, r, p, b):
     sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
@@ -319,7 +331,7 @@ def p_ref_b(m_i, m_j, sd, r, p, b):
 # 2.1) Find the profit from referral under voluntary referrals:
 def pi_vr_j(m_i, m_j, sd, r, p):
     sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
-    integrand_vr = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y) / sd_y
+    integrand_vr = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y)
     profit_vr_j = quad(
         integrand_vr,
         max(y_tilde(m_i, m_j, sd, r, p), y_star(m_i, m_j, sd, r)),
@@ -327,12 +339,35 @@ def pi_vr_j(m_i, m_j, sd, r, p):
     )
     return profit_vr_j[0] / p_ref(m_i, m_j, sd, r, p)
 
+# 2.1.1) Find the hypothetical profit from referral under voluntary referrals, if the binding threshold is y_tilde
+def pi_vr_j_y_tilde(m_i, m_j, sd, r, p):
+    sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
+    integrand_vr_y_tilde = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y)
+    profit_vr_j_y_tilde = quad(
+        integrand_vr_y_tilde,
+        y_tilde(m_i, m_j, sd, r, p),
+        np.infty
+    )
+    return profit_vr_j_y_tilde[0] / p_ref_y_tilde(m_i, m_j, sd, r, p)
+
+
+# 2.1.1) Find the hypothetical profit from referral under voluntary referrals, if the binding threshold is y_star
+def pi_vr_j_y_star(m_i, m_j, sd, r):
+    sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
+    integrand_vr_y_star = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y)
+    profit_vr_j_y_star = quad(
+        integrand_vr_y_star,
+        y_star(m_i, m_j, sd, r),
+        np.infty
+    )
+    return profit_vr_j_y_star[0] / p_ref_y_star(m_i, m_j, sd, r)
+
 
 # 2.2) Find the profit from referral under ERP with bonus b:
 def pi_erp_j(m_i, m_j, sd, r, p, b):
     sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
     y_thr = max(y_tilde_b(m_i, m_j, sd, r, p, b), y_star_b(m_i, m_j, sd, r, b))
-    integrand_erp = lambda x: pi_j_t_b(x, m_i, m_j, sd, r, b) * norm.pdf((x - m_i) / sd_y) / sd_y
+    integrand_erp = lambda x: pi_j_t_b(x, m_i, m_j, sd, r, b) * norm.pdf((x - m_i) / sd_y)
     profit_erp_j = quad(
         integrand_erp,
         y_thr,
@@ -344,6 +379,18 @@ def pi_erp_j(m_i, m_j, sd, r, p, b):
 # 3.1) Find the overall profit under voluntary referrals:
 def pi_total_vr(m_i, m_j, sd, r, p):
     return p_ref(m_i, m_j, sd, r, p) * pi_vr_j(m_i, m_j, sd, r, p) + (1 - p_ref(m_i, m_j, sd, r, p)) * pi_m_t(m_j, sd)
+
+
+# 3.1.1.) Find the hypothetical overall profit under voluntary referrals if threshold is y_tilde:
+def pi_total_vr_y_tilde(m_i, m_j, sd, r, p):
+    return p_ref_y_tilde(m_i, m_j, sd, r, p) * pi_vr_j_y_tilde(m_i, m_j, sd, r, p) + \
+        (1 - p_ref_y_tilde(m_i, m_j, sd, r, p)) * pi_m_t(m_j, sd)
+
+
+# 3.1) Find the hypothetical overall profit under voluntary referrals if threshold is y_star:
+def pi_total_vr_y_star(m_i, m_j, sd, r):
+    return p_ref_y_star(m_i, m_j, sd, r) * pi_vr_j_y_star(m_i, m_j, sd, r) + \
+        (1 - p_ref_y_star(m_i, m_j, sd, r)) * pi_m_t(m_j, sd)
 
 
 # 3.1) Find the overall profit under ERP with bonus b:
@@ -407,7 +454,7 @@ print('pi_total_erp = ', pi_total_erp(mean_i, mean_j, st_dev, rho, psi, B_star))
 print('pi_total_erp_optimal = ', pi_total_erp(mean_i, mean_j, st_dev, rho, psi, B_star))
 print('b_star = ', B_star)
 
-# bonus = np.linspace(0, c(mean_j), 20)
-# plt.plot(bonus, pi_total_erp(mean_i, mean_j, st_dev, rho, psi, bonus) )
+# y_i = np.linspace(0, c(mean_j)+4, 20)
+# plt.plot(y_i, pi_j_t(y_i, mean_i, mean_j,st_dev, rho))
 # # plt.plot(bonus, p_ref_b(mean_i, mean_j, st_dev, rho, psi, bonus))
 # plt.show()
