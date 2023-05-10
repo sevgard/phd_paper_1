@@ -331,7 +331,7 @@ def p_ref_b(m_i, m_j, sd, r, p, b):
 # 2.1) Find the profit from referral under voluntary referrals:
 def pi_vr_j(m_i, m_j, sd, r, p):
     sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
-    integrand_vr = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y)
+    integrand_vr = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y) * (1 / sd_y)
     profit_vr_j = quad(
         integrand_vr,
         max(y_tilde(m_i, m_j, sd, r, p), y_star(m_i, m_j, sd, r)),
@@ -342,7 +342,7 @@ def pi_vr_j(m_i, m_j, sd, r, p):
 # 2.1.1) Find the hypothetical profit from referral under voluntary referrals, if the binding threshold is y_tilde
 def pi_vr_j_y_tilde(m_i, m_j, sd, r, p):
     sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
-    integrand_vr_y_tilde = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y)
+    integrand_vr_y_tilde = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y) * (1 / sd_y)
     profit_vr_j_y_tilde = quad(
         integrand_vr_y_tilde,
         y_tilde(m_i, m_j, sd, r, p),
@@ -354,7 +354,7 @@ def pi_vr_j_y_tilde(m_i, m_j, sd, r, p):
 # 2.1.1) Find the hypothetical profit from referral under voluntary referrals, if the binding threshold is y_star
 def pi_vr_j_y_star(m_i, m_j, sd, r):
     sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
-    integrand_vr_y_star = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y)
+    integrand_vr_y_star = lambda x: pi_j_t(x, m_i, m_j, sd, r) * norm.pdf((x - m_i) / sd_y) * (1 / sd_y)
     profit_vr_j_y_star = quad(
         integrand_vr_y_star,
         y_star(m_i, m_j, sd, r),
@@ -367,7 +367,7 @@ def pi_vr_j_y_star(m_i, m_j, sd, r):
 def pi_erp_j(m_i, m_j, sd, r, p, b):
     sd_y = (sd ** 2 + 1) ** 0.5  # Standard deviation of y_m
     y_thr = max(y_tilde_b(m_i, m_j, sd, r, p, b), y_star_b(m_i, m_j, sd, r, b))
-    integrand_erp = lambda x: pi_j_t_b(x, m_i, m_j, sd, r, b) * norm.pdf((x - m_i) / sd_y)
+    integrand_erp = lambda x: pi_j_t_b(x, m_i, m_j, sd, r, b) * norm.pdf((x - m_i) / sd_y) * (1 / sd_y)
     profit_erp_j = quad(
         integrand_erp,
         y_thr,

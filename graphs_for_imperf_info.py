@@ -85,7 +85,7 @@ ax4.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax4.set_title('Referral Costs and Bonus')
 leg_4 = ax4.legend()
 fig1.show()
-fig1.savefig('imperf_means_var.png')
+fig1.savefig('images/imperf_means_var.png')
 
 # # Empty lists:
 # list_cost_ref = []
@@ -192,7 +192,7 @@ ax34.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax34.set_title('Referral Costs and Bonus')
 leg_4 = ax34.legend()
 fig3.show()
-fig3.savefig('imperf_mean_j_var.png')
+fig3.savefig('images/imperf_mean_j_var.png')
 
 # Empty lists:
 list_cost_ref = []
@@ -212,7 +212,7 @@ list_pi_total_erp = []
 
 # 4. st_dev
 for i in range(30):
-    j = 0.5 + i*(2/30)
+    j = 0.21 + i*(1.79/30)
     B_star = b_star(mean_i, mean_j, j, rho, psi)
     list_cost_ref.append((j, c(mean_j)))
     list_y_tilde.append((j, y_tilde(mean_i, mean_j, j, rho, psi)))
@@ -249,7 +249,7 @@ ax44.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax44.set_title('Referral Costs and Bonus')
 leg_4 = ax44.legend()
 fig4.show()
-fig4.savefig('imperf_st_dev_var.png')
+fig4.savefig('images/imperf_st_dev_var.png')
 
 # Empty lists:
 list_cost_ref = []
@@ -269,7 +269,7 @@ list_pi_total_erp = []
 
 # 5. rho
 for i in range(30):
-    j = 0.1 + i*(0.89/30)
+    j = 0.05 + i*(0.94/30)
     B_star = b_star(mean_i, mean_j, st_dev, j, psi)
     list_cost_ref.append((j, c(mean_j)))
     list_y_tilde.append((j, y_tilde(mean_i, mean_j, st_dev, j, psi)))
@@ -306,7 +306,7 @@ ax54.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax54.set_title('Referral Costs and Bonus')
 leg_4 = ax54.legend()
 fig5.show()
-fig5.savefig('imperf_rho_var.png')
+fig5.savefig('images/imperf_rho_var.png')
 
 # Empty lists:
 list_cost_ref = []
@@ -326,7 +326,7 @@ list_pi_total_erp = []
 
 # 6. psi
 for i in range(30):
-    j = 0.1 + i*(0.89/30)
+    j = 0.05 + i*(0.94/30)
     B_star = b_star(mean_i, mean_j, st_dev, rho, j)
     list_cost_ref.append((j, c(mean_j)))
     list_y_tilde.append((j, y_tilde(mean_i, mean_j, st_dev, rho, j)))
@@ -363,4 +363,4 @@ ax64.plot(*zip(*list_b_star), '-b', label='bonus b\u002A')
 ax64.set_title('Referral Costs and Bonus')
 leg_4 = ax64.legend()
 fig6.show()
-fig6.savefig('imperf_psi_var.png')
+fig6.savefig('images/imperf_psi_var.png')
